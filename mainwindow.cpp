@@ -31,7 +31,7 @@ void MainWindow::on_EquivalenceClosure_clicked()
 {
     ui->Outputs->setPlainText("");
 
-    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", QDir::currentPath());
+    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
     Relation r;
     Relation rout;
@@ -62,7 +62,7 @@ void MainWindow::on_EquivalenceClosure_clicked()
 void MainWindow::on_EquivalenceClasses_clicked()
 {
     ui->Outputs->setPlainText("");
-    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", QDir::currentPath());
+    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
     Relation r;
     Relation rr;
@@ -134,7 +134,7 @@ void MainWindow::on_EquivalenceClasses_clicked()
 void MainWindow::on_Topology_clicked()
 {
     ui->Outputs->setPlainText("");
-    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", QDir::currentPath());
+    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
     Relation r(filename.toLatin1().data());
     if (r.IsCycle()){
@@ -156,7 +156,7 @@ void MainWindow::on_Topology_clicked()
 void MainWindow::on_Hasse_clicked()
 {
     ui->Outputs->setPlainText("");
-    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", QDir::currentPath());
+    QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
     Relation r(filename.toLatin1().data());
     Relation rpartial;
     Relation rout;
