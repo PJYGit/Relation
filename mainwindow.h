@@ -5,6 +5,7 @@
 #include <QColor>
 #include <QPixmap>
 #include <QPainter>
+#include <QProgressBar>
 
 namespace Ui {
 class MainWindow;
@@ -38,6 +39,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QProgressBar *progress;
     QPixmap Pix;
 };
 

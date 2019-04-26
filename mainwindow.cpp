@@ -4,11 +4,13 @@
 #include <QStack>
 #include <QPushButton>
 #include <QFileDialog>
+#include <QMessageBox>
 
 int count_level = 1;
 int hori_count = 1;
 QStack<int> stack;
 int added[20];
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,6 +20,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     Pix = QPixmap(width(), height());
     Pix.fill(Qt::gray);
+
+    ui->statusBar->setFixedHeight(50);
+
+    progress = new QProgressBar;
+    progress->setValue(0);
+    progress->setMaximumHeight(30);
+    progress->setMinimumHeight(30);
+    ui->statusBar->addWidget(progress);
 
     for (int i=0;i<20;i++) added[i] = -1;
 }
@@ -30,6 +40,7 @@ MainWindow::~MainWindow()
 void MainWindow::on_EquivalenceClosure_clicked()
 {
     ui->Outputs->setPlainText("");
+    progress->setValue(0);
 
     QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
@@ -57,11 +68,13 @@ void MainWindow::on_EquivalenceClosure_clicked()
         }
         ui->Outputs->append("");
     }
+    progress->setValue(100);
 }
 
 void MainWindow::on_EquivalenceClasses_clicked()
 {
     ui->Outputs->setPlainText("");
+    progress->setValue(0);
     QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
     Relation r;
@@ -119,7 +132,7 @@ void MainWindow::on_EquivalenceClasses_clicked()
             }
         }
         if (n > 5) {
-            ui->Outputs->append("No >= 5");
+            ui->Outputs->append("No <= 5 !");
             break;
         }
     }
@@ -129,15 +142,19 @@ void MainWindow::on_EquivalenceClasses_clicked()
         ui->Outputs->append("No 9&13 in one module!");
     }
 
+    progress->setValue(100);
+
 }
 
 void MainWindow::on_Topology_clicked()
 {
     ui->Outputs->setPlainText("");
+    progress->setValue(0);
     QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
 
     Relation r(filename.toLatin1().data());
     if (r.IsCycle()){
+        QMessageBox::warning(this, "Warning!", "NO TOPOLOGY ORDER since there is no partial-order closure.");
         ui->Outputs->setPlainText("There is a cycle! No Topology Order!");
     }
     else {
@@ -150,12 +167,13 @@ void MainWindow::on_Topology_clicked()
             ui->Outputs->setPlainText(last + temp + "  ");
         }
     }
-
+    progress->setValue(100);
 }
 
 void MainWindow::on_Hasse_clicked()
 {
     ui->Outputs->setPlainText("");
+    progress->setValue(0);
     QString filename = QFileDialog::getOpenFileName(this, "Matrix choosing", "F:/Qt codes/Relation/Test");
     Relation r(filename.toLatin1().data());
     Relation rpartial;
@@ -202,8 +220,10 @@ void MainWindow::on_Hasse_clicked()
 
     }
     else {
+        QMessageBox::warning(this, "Warning!", "NO HASSE since there is no partial-order closure.");
         ui->Outputs->setPlainText("NO HASSE!");
     }
+    progress->setValue(100);
 }
 
 void MainWindow::paintEvent(QPaintEvent *event) {
